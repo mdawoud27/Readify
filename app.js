@@ -1,6 +1,8 @@
 const express = require("express");
 const { connectToMongoDB } = require("./config/db");
 const { connectToRedis } = require("./config/redis");
+const helmet = require("helmet");
+const cors = require("cors");
 require("dotenv").config(); // Load enviroment variables
 
 // Init app
@@ -16,6 +18,13 @@ connectToRedis();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Helmet
+app.use(helmet());
+
+// Cors Policy
+app.use(cors());
+
+// Routes
 app.get("/", (req, res) => {
   res.status(200).send("Hello world");
 });
