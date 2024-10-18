@@ -3,6 +3,7 @@ const { connectToMongoDB } = require("./config/db");
 const { connectToRedis } = require("./config/redis");
 const helmet = require("helmet");
 const cors = require("cors");
+const { logger } = require("./middlewares/logger");
 require("dotenv").config(); // Load enviroment variables
 
 // Init app
@@ -17,6 +18,7 @@ connectToRedis();
 // Middleware to parse JSON and form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(logger);
 
 // Helmet
 app.use(helmet());
