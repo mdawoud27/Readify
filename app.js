@@ -4,6 +4,7 @@ const { connectToRedis } = require("./config/redis");
 const helmet = require("helmet");
 const cors = require("cors");
 const { logger } = require("./middlewares/logger");
+const { notFound, errorHandler } = require("./middlewares/errorHandler");
 require("dotenv").config(); // Load enviroment variables
 
 // Init app
@@ -31,6 +32,11 @@ app.get("/", (req, res) => {
   res.status(200).send("Hello world");
 });
 
+// Error Handler Middleware
+app.use(notFound);
+app.use(errorHandler);
+
+// Running The Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(
