@@ -28,9 +28,7 @@ app.use(helmet());
 app.use(cors());
 
 // Routes
-app.get("/", (req, res) => {
-  res.status(200).send("Hello world");
-});
+app.use("/api/authors", require("./routes/authors"));
 
 // Error Handler Middleware
 app.use(notFound);
