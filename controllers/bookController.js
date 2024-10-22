@@ -1,11 +1,12 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const router = express.Router();
+const { Book } = require("../models/Book");
+const { setBookFields } = require("../utils/helpers");
 const {
-  Book,
   validateCreateBook,
   validateUpdateBook,
-} = require("../models/Book");
+} = require("../utils/validators");
 
 /**
  *  @desc    Get all books
@@ -14,7 +15,14 @@ const {
  *  @access  public
  */
 const getAllBooks = asyncHandler(async (req, res) => {
-  const { pageNumber, minPrice, maxPrice } = req.query;
+  const pageNumber = Number(req.query.pageNumber) || 1;
+  const minPrice = Number(req.query.minPrice) || 0;
+  const maxPrice = Number(req.query.maxPrice) || 100000000;
+
+  if (pageNumber < 1) {
+    return res.status(400).json({ message: "Invalid page number" });
+  }
+
   const authorPerPage = 5;
   let books;
 
@@ -31,7 +39,8 @@ const getAllBooks = asyncHandler(async (req, res) => {
       .populate("author", ["_id", "firstName", "lastName"])
       .sort({ title: 1 })
       .skip((pageNumber - 1) * authorPerPage)
-      .limit(authorPerPage);
+      .limit(authorPerPage)
+      .populate("author", ["_id", "firstName", "lastName"]);
   }
   res.status(200).json(books);
 });
@@ -47,9 +56,6 @@ const getBookById = asyncHandler(async (req, res) => {
     "_id",
     "firstName",
     "lastName",
-    "biography",
-    "nationality",
-    "books",
   ]);
 
   if (book) {
@@ -69,17 +75,10 @@ const creatNewBook = asyncHandler(async (req, res) => {
   const { error } = validateCreateBook(req.body);
 
   if (error) {
-    res.status(400).json({ error: error.details[0].message });
+    return res.status(400).json({ error: error.details[0].message });
   }
 
-  const book = await new Book({
-    title: req.body.title,
-    author: req.body.author,
-    description: req.body.description,
-    price: req.body.price,
-    cover: req.body.cover,
-    reviews: req.body.reviews,
-  });
+  const book = await new Book(setBookFields(req));
 
   const createdBook = await book.save();
 
@@ -96,23 +95,32 @@ const updateBook = asyncHandler(async (req, res) => {
   const { error } = validateUpdateBook(req.body);
 
   if (error) {
-    res.status(400).json({ error: error.details[0].message });
+    return res.status(400).json({ error: error.details[0].message });
   }
 
   const book = await Book.findById(req.params.id);
 
+  // title: req.body.title,
+  // author: req.body.author,
+  // description: req.body.description,
+  // price: req.body.price,
+  // cover: req.body.cover,
+  // reviews: req.body.reviews,
+
   if (book) {
+    const updateData = {
+      ...(req.body.title && { title: req.body.title }), // Update if provided
+      ...(req.body.author && { author: req.body.author }),
+      ...(req.body.description && { description: req.body.description }),
+      ...(req.body.price && { price: req.body.price }),
+      ...(req.body.cover && { cover: req.body.cover }),
+      ...(req.body.reviews && { reviews: req.body.reviews }),
+    };
+
     const updatedBook = await Book.findByIdAndUpdate(
       req.params.id,
       {
-        $set: {
-          title: req.body.title,
-          author: req.body.author,
-          description: req.body.description,
-          price: req.body.price,
-          cover: req.body.cover,
-          reviews: req.body.reviews,
-        },
+        $set: updateData,
       },
       { new: true }
     );
@@ -134,7 +142,7 @@ const deleteBook = asyncHandler(async (req, res) => {
 
   if (book) {
     await Book.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "This book is deleted successfully" });
+    res.status(204).json({ message: "This book is deleted successfully" });
   } else {
     res.status(404).json({ message: "This book is NOT FOUND!" });
   }

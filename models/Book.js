@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const Joi = require("joi");
-Joi.objectId = require("joi-objectid")(Joi);
 
 const bookSchema = mongoose.Schema(
   {
@@ -30,36 +28,18 @@ const bookSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-// Validate Create Book
-function validateCreateBook(obj) {
-  const schema = Joi.object({
-    title: Joi.string().required().trim().min(3).max(200),
-    author: Joi.objectId().required(),
-    description: Joi.string().trim().required().min(5).max(500),
-    price: Joi.number().min(0).required(),
-    cover: Joi.string().required().valid("soft-cover", "hard-cover"),
-    reviews: Joi.array().items(Joi.objectId()),
+// Post-save middleware to update the author's books array
+bookSchema.post("save", async function (doc, next) {
+  // `doc` is the saved book document
+  const Author = mongoose.model("Author");
+
+  // Find the author by the 'author' field and add the book ID to their 'books' array
+  await Author.findByIdAndUpdate(doc.author, {
+    $addToSet: { book: doc._id },
   });
-
-  return schema.validate(obj);
-}
-
-// Validate Update Book
-function validateUpdateBook(obj) {
-  const schema = Joi.object({
-    title: Joi.string().trim().min(3).max(200),
-    author: Joi.objectId(),
-    description: Joi.string().trim().min(5).max(500),
-    price: Joi.number().min(0),
-    cover: Joi.string().valid("soft-cover", "hard-cover"),
-    reviews: Joi.array().items(Joi.objectId()),
-  });
-
-  return schema.validate(obj);
-}
+  next();
+});
 
 module.exports = {
   Book: mongoose.model("Book", bookSchema),
-  validateCreateBook,
-  validateUpdateBook,
 };

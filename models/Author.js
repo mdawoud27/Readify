@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const Joi = require("joi");
-Joi.objectId = require("joi-objectid")(Joi);
 
 const authorSchema = new mongoose.Schema(
   {
@@ -32,32 +30,6 @@ const authorSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-function validateCreateAuthor(obj) {
-  const schema = Joi.object({
-    firstName: Joi.string().required().trim().min(3).max(20),
-    lastName: Joi.string().required().trim().min(3).max(20),
-    biography: Joi.string().trim().min(5).max(500),
-    books: Joi.array().items(Joi.objectId()),
-    nationality: Joi.string().required().trim().min(3).max(100),
-    image: Joi.string().trim().default("default-avatar.png"),
-  });
-  return schema.validate(obj);
-}
-
-function validateUpdateAuthor(obj) {
-  const schema = Joi.object({
-    firstName: Joi.string().trim().min(3).max(20),
-    lastName: Joi.string().trim().min(3).max(20),
-    biography: Joi.string().trim().min(5).max(500),
-    books: Joi.array().items(Joi.objectId()),
-    nationality: Joi.string().trim().min(3).max(100),
-    image: Joi.string().trim().default("default-avatar.png"),
-  });
-  return schema.validate(obj);
-}
-
 module.exports = {
   Author: mongoose.model("Author", authorSchema),
-  validateCreateAuthor,
-  validateUpdateAuthor,
 };

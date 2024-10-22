@@ -1,9 +1,10 @@
 const asyncHandler = require("express-async-handler");
+const { Author } = require("../models/Author");
+const { setAuthorFields } = require("../utils/helpers");
 const {
-  Author,
   validateCreateAuthor,
   validateUpdateAuthor,
-} = require("../models/Author");
+} = require("../utils/validators");
 
 /**
  * @desc   Get all authors
@@ -12,12 +13,18 @@ const {
  * @access public
  */
 const getAllAuthors = asyncHandler(async (req, res) => {
-  const { pageNumber } = req.query;
+  const pageNumber = Number(req.query.pageNumber) || 1;
+
+  if (pageNumber < 1) {
+    return res.status(400).json({ message: "Invalid page number" });
+  }
+
   const authorPerPage = 5;
   const authors = await Author.find()
     .sort({ firstName: 1 })
-    // .skip((pageNumber - 1) * authorPerPage)
-    // .limit(authorPerPage);
+    .skip((pageNumber - 1) * authorPerPage)
+    .limit(authorPerPage)
+    .populate("books", ["_id", "title"]);
   res.status(200).json(authors);
 });
 
@@ -28,7 +35,10 @@ const getAllAuthors = asyncHandler(async (req, res) => {
  * @access public
  */
 const getAuthorById = asyncHandler(async (req, res) => {
-  const author = await Author.findById(req.params.id);
+  const author = await Author.findById(req.params.id).populate("books", [
+    "_id",
+    "title",
+  ]);
 
   if (author) {
     res.status(200).json(author);
@@ -47,17 +57,10 @@ const createNewAuthor = asyncHandler(async (req, res) => {
   const { error } = validateCreateAuthor(req.body);
 
   if (error) {
-    res.status(400).json({ error: error.details[0].message });
+    return res.status(400).json({ error: error.details[0].message });
   }
 
-  const author = new Author({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    biography: req.body.biography,
-    books: req.body.books,
-    nationality: req.body.nationality,
-    image: req.body.image,
-  });
+  const author = new Author(setAuthorFields(req));
 
   const authorSaved = await author.save();
   res.status(201).json(authorSaved);
@@ -73,20 +76,22 @@ const updateAuthor = asyncHandler(async (req, res) => {
   const { error } = validateUpdateAuthor(req.body);
 
   if (error) {
-    res.status(400).json({ error: error.details[0].message });
+    return res.status(400).json({ error: error.details[0].message });
   }
+
+  const updateData = {
+    ...(req.body.firstName && { firstName: req.body.firstName }), // Update if provided
+    ...(req.body.lastName && { lastName: req.body.lastName }),
+    ...(req.body.biography && { biography: req.body.biography }),
+    ...(req.body.books && { books: req.body.books }),
+    ...(req.body.nationality && { nationality: req.body.nationality }),
+    ...(req.body.image && { image: req.body.image }),
+  };
 
   const author = await Author.findByIdAndUpdate(
     req.params.id,
     {
-      $set: {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        biography: req.body.biography,
-        books: req.body.books,
-        nationality: req.body.nationality,
-        image: req.body.image,
-      },
+      $set: updateData,
     },
     { new: true }
   );
@@ -105,7 +110,8 @@ const deleteAuthor = asyncHandler(async (req, res) => {
 
   if (author) {
     await Author.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "This author is DELETED successfully." });
+    res.status(204).json({ message: "This author is DELETED successfully." });
+    return;
   } else {
     res.status(404).json({ error: "This author is NOT FOUND!" });
   }
