@@ -1,5 +1,6 @@
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
+const passwordComplexity = require("joi-password-complexity");
 
 // Validate create an Author
 function validateCreateAuthor(obj) {
@@ -68,10 +69,41 @@ function validateUpdateUser(obj) {
   return schema.validate(obj);
 }
 
+// Validate User regisration
+function validateRegisterUser(obj) {
+  const schema = Joi.object({
+    firstName: Joi.string().trim().min(3).max(20).required(),
+    lastName: Joi.string().trim().min(3).max(20).required(),
+    username: Joi.string().required().trim().min(3).max(20),
+    email: Joi.string().required().email().trim().min(5).max(100),
+    password: passwordComplexity().required(),
+    orders: Joi.array().items(Joi.objectId()),
+    reviews: Joi.array().items(Joi.objectId()),
+  });
+
+  return schema.validate(obj);
+}
+
+// Validate User login
+function validateLoginUser(obj) {
+  const schema = Joi.object({
+    // Either email or username must be provided
+    email: Joi.string().email().trim().min(5).max(100),
+    username: Joi.string().trim().min(3).max(20),
+
+    // Require either username or email (at least one)
+    password: Joi.string().required(),
+  }).xor("email", "username"); // Ensures that only one of email or username is required
+
+  return schema.validate(obj);
+}
+
 module.exports = {
   validateCreateAuthor,
   validateUpdateAuthor,
   validateCreateBook,
   validateUpdateBook,
   validateUpdateUser,
+  validateRegisterUser,
+  validateLoginUser,
 };
