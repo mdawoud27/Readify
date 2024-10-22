@@ -1,9 +1,23 @@
 const mongoose = require("mongoose");
-
+const Joi = require("joi");
+Joi.objectId = require("joi-objectid")(Joi);
+const passwordComplexity = require("joi-password-complexity");
 const userSchema = new mongoose.Schema(
   {
-    firstName: { type: String, trim: true, minlength: 3, maxlength: 20 },
-    lastName: { type: String, trim: true, minlength: 3, maxlength: 20 },
+    firstName: {
+      type: String,
+      trim: true,
+      minlength: 3,
+      maxlength: 20,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      trim: true,
+      minlength: 3,
+      maxlength: 20,
+      required: true,
+    },
     username: {
       type: String,
       required: true,

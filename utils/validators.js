@@ -55,9 +55,23 @@ function validateUpdateBook(obj) {
   return schema.validate(obj);
 }
 
+// Validate update user
+function validateUpdateUser(obj) {
+  const schema = Joi.object({
+    firstName: Joi.string().trim().min(3).max(20),
+    lastName: Joi.string().trim().min(3).max(20),
+    username: Joi.string().trim().min(3).max(20),
+    email: Joi.string().email().trim().min(5).max(100),
+    password: Joi.string().trim().min(8).max(100),
+  });
+
+  return schema.validate(obj);
+}
+
 module.exports = {
   validateCreateAuthor,
   validateUpdateAuthor,
   validateCreateBook,
   validateUpdateBook,
+  validateUpdateUser,
 };
