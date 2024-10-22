@@ -16,8 +16,8 @@ const getAllAuthors = asyncHandler(async (req, res) => {
   const authorPerPage = 5;
   const authors = await Author.find()
     .sort({ firstName: 1 })
-    .skip((pageNumber - 1) * authorPerPage)
-    .limit(authorPerPage);
+    // .skip((pageNumber - 1) * authorPerPage)
+    // .limit(authorPerPage);
   res.status(200).json(authors);
 });
 

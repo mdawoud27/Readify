@@ -29,6 +29,7 @@ app.use(cors());
 
 // Routes
 app.use("/api/authors", require("./routes/authors"));
+app.use("/api/books", require("./routes/books"));
 
 // Error Handler Middleware
 app.use(notFound);
