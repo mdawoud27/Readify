@@ -4,6 +4,10 @@ const router = express.Router();
 const { Book } = require("../models/Book");
 const { setBookFields } = require("../utils/helpers");
 const {
+  updateAuthorBooks,
+  removeBooksFromOldAuthors,
+} = require("../utils/authorBookSync");
+const {
   validateCreateBook,
   validateUpdateBook,
 } = require("../utils/validators");
@@ -33,14 +37,15 @@ const getAllBooks = asyncHandler(async (req, res) => {
       .populate("author", ["_id", "firstName", "lastName"])
       .sort({ title: 1 })
       .skip((pageNumber - 1) * authorPerPage)
-      .limit(authorPerPage);
+      .limit(authorPerPage)
+      .populate("reviews");
   } else {
     books = await Book.find()
-      .populate("author", ["_id", "firstName", "lastName"])
-      .sort({ title: 1 })
+      .sort({ title: -1 })
       .skip((pageNumber - 1) * authorPerPage)
       .limit(authorPerPage)
-      .populate("author", ["_id", "firstName", "lastName"]);
+      .populate("author", ["_id", "firstName", "lastName"])
+      .populate("reviews");
   }
   res.status(200).json(books);
 });
@@ -52,11 +57,9 @@ const getAllBooks = asyncHandler(async (req, res) => {
  *  @access  public
  */
 const getBookById = asyncHandler(async (req, res) => {
-  const book = await Book.findById(req.params.id).populate("author", [
-    "_id",
-    "firstName",
-    "lastName",
-  ]);
+  const book = await Book.findById(req.params.id)
+    .populate("author", ["_id", "firstName", "lastName"])
+    .populate("reviews");
 
   if (book) {
     res.status(200).json(book);
@@ -82,6 +85,10 @@ const creatNewBook = asyncHandler(async (req, res) => {
 
   const createdBook = await book.save();
 
+  // Execute the author-books updates
+  updateAuthorBooks();
+  removeBooksFromOldAuthors();
+
   res.status(201).json(createdBook);
 });
 
@@ -100,13 +107,6 @@ const updateBook = asyncHandler(async (req, res) => {
 
   const book = await Book.findById(req.params.id);
 
-  // title: req.body.title,
-  // author: req.body.author,
-  // description: req.body.description,
-  // price: req.body.price,
-  // cover: req.body.cover,
-  // reviews: req.body.reviews,
-
   if (book) {
     const updateData = {
       ...(req.body.title && { title: req.body.title }), // Update if provided
@@ -124,6 +124,10 @@ const updateBook = asyncHandler(async (req, res) => {
       },
       { new: true }
     );
+
+    // Execute the author-books updates
+    updateAuthorBooks();
+    removeBooksFromOldAuthors();
 
     res.status(200).json(updatedBook);
   } else {

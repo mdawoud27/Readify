@@ -23,8 +23,8 @@ const getAllUsers = asyncHandler(async (req, res) => {
     .sort({ firstName: 1 })
     .skip((pageNumber - 1) * userPerPage)
     .limit(userPerPage)
-    // .populate("orders")
-    // .populate("reviews");
+    .populate("reviews");
+  // .populate("orders")
   res.status(200).json(users);
 });
 
@@ -35,7 +35,9 @@ const getAllUsers = asyncHandler(async (req, res) => {
  *  @access  private - ONLY ADMINS and USER HIMSELF
  */
 const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id).select("-password");
+  const user = await User.findById(req.params.id)
+    .select("-password")
+    .populate("reviews");
 
   if (user) {
     res.status(200).json(user);
