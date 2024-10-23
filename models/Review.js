@@ -1,4 +1,3 @@
-const { required } = require("joi");
 const mongoose = require("mongoose");
 
 const reviewSchema = new mongoose.Schema(
@@ -10,6 +9,11 @@ const reviewSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Indexes for better query performance
+reviewSchema.index({ rating: 1 });
+reviewSchema.index({ book: 1 });
+reviewSchema.index({ user: 1 });
 
 module.exports = {
   Review: mongoose.model("Review", reviewSchema),

@@ -98,6 +98,30 @@ function validateLoginUser(obj) {
   return schema.validate(obj);
 }
 
+// Validate Review creation
+function validateCreateReview(obj) {
+  const schema = Joi.object({
+    rating: Joi.number().required().min(1).max(5),
+    comment: Joi.string().min(6).max(500).trim(),
+    user: Joi.objectId().required(),
+    book: Joi.objectId().required(),
+  });
+
+  return schema.validate(obj);
+}
+
+// Validate Review Update
+function validateUpdateReview(obj) {
+  const schema = Joi.object({
+    rating: Joi.number().min(1).max(5),
+    comment: Joi.string().min(6).max(500).trim(),
+    user: Joi.objectId(),
+    book: Joi.objectId(),
+  });
+
+  return schema.validate(obj);
+}
+
 module.exports = {
   validateCreateAuthor,
   validateUpdateAuthor,
@@ -106,4 +130,6 @@ module.exports = {
   validateUpdateUser,
   validateRegisterUser,
   validateLoginUser,
+  validateCreateReview,
+  validateUpdateReview,
 };

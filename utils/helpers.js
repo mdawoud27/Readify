@@ -16,7 +16,17 @@ const setBookFields = (req) => ({
   reviews: req.body.reviews,
 });
 
+function setReviewFields(req) {
+  return {
+    ...(req.body.rating && { rating: req.body.rating }),
+    ...(req.body.comment && { comment: req.body.comment }),
+    user: req.body.user, // Keep the user and book as they are required fields.
+    book: req.body.book,
+  };
+}
+
 module.exports = {
   setAuthorFields,
   setBookFields,
+  setReviewFields,
 };
