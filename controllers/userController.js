@@ -19,12 +19,12 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
   const userPerPage = 10;
   const users = await User.find()
-    .select("-password", "-__v")
+    .select(["-password", "-__v"])
     .sort({ firstName: 1 })
     .skip((pageNumber - 1) * userPerPage)
     .limit(userPerPage)
-    .populate("orders")
-    .populate("reviews");
+    // .populate("orders")
+    // .populate("reviews");
   res.status(200).json(users);
 });
 
@@ -99,7 +99,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
   if (user) {
     await User.findByIdAndDelete(req.params.id);
-    res.status(204).json({ message: "This user is successfully deleted!" });
+    res.status(200).json({ message: "This user is successfully deleted!" });
     return;
   } else {
     res.status(404).json({ success: false, message: "User NOT FOUND!" });
