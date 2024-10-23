@@ -142,7 +142,7 @@ const deleteBook = asyncHandler(async (req, res) => {
 
   if (book) {
     await Book.findByIdAndDelete(req.params.id);
-    res.status(204).json({ message: "This book is deleted successfully" });
+    res.status(200).json({ message: "This book is deleted successfully" });
   } else {
     res.status(404).json({ message: "This book is NOT FOUND!" });
   }

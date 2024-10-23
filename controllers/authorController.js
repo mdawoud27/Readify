@@ -110,7 +110,7 @@ const deleteAuthor = asyncHandler(async (req, res) => {
 
   if (author) {
     await Author.findByIdAndDelete(req.params.id);
-    res.status(204).json({ message: "This author is DELETED successfully." });
+    res.status(200).json({ message: "This author is DELETED successfully." });
     return;
   } else {
     res.status(404).json({ error: "This author is NOT FOUND!" });
