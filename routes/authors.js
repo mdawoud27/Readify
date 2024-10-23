@@ -7,11 +7,16 @@ const {
   updateAuthor,
   deleteAuthor,
 } = require("../controllers/authorController");
+const { verifyTokenAndAdmin } = require("../middlewares/verifyToken");
 
 // /api/authors/
-router.route("/").get(getAllAuthors).post(createNewAuthor);
+router.route("/").get(getAllAuthors).post(verifyTokenAndAdmin, createNewAuthor);
 
 // /api/authors/:id
-router.route("/:id").get(getAuthorById).put(updateAuthor).delete(deleteAuthor);
+router
+  .route("/:id")
+  .get(getAuthorById)
+  .put(verifyTokenAndAdmin, updateAuthor)
+  .delete(verifyTokenAndAdmin, deleteAuthor);
 
 module.exports = router;

@@ -6,11 +6,19 @@ const {
   updateUser,
   deleteUser,
 } = require("../controllers/userController");
+const {
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("../middlewares/verifyToken");
 
 // /api/users/
-router.route("/").get(getAllUsers);
+router.route("/").get(verifyTokenAndAdmin, getAllUsers);
 
 // /api/users/:id
-router.route("/:id").get(getUserById).put(updateUser).delete(deleteUser);
+router
+  .route("/:id")
+  .get(verifyTokenAndAuthorization, getUserById)
+  .put(verifyTokenAndAuthorization, updateUser)
+  .delete(verifyTokenAndAuthorization, deleteUser);
 
 module.exports = router;
