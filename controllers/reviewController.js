@@ -13,45 +13,45 @@ const { setReviewFields } = require("../utils/helpers");
  * @access public
  */
 const getAllReviews = asyncHandler(async (req, res) => {
-  const reviews = await Review.find().populate("book");
-  res.status(200).json(reviews);
-  // const pageNumber = Number(req.query.pageNumber) || 1;
-  // const minRate = Number(req.query.minRate) || 1;
-  // const maxRate = Number(req.query.maxRate) || 5;
+  const pageNumber = Number(req.query.pageNumber) || 1;
+  const minRate = Number(req.query.minRate) || 1;
+  const maxRate = Number(req.query.maxRate) || 5;
 
-  // if (pageNumber < 1) {
-  //   return res.status(400).json({ message: "Invalid page number" });
-  // }
+  if (pageNumber < 1) {
+    return res.status(400).json({ message: "Invalid page number" });
+  }
 
-  // const reviewPerPage = 5;
-  // let reviews;
+  const reviewPerPage = 5;
+  let reviews;
 
-  // if (minRate && maxRate) {
-  //   reviews = await Review.find({
-  //     rating: { $gte: minRate, $lte: maxRate },
-  //   });
-  //   // .sort({ rating: 1 })
-  //   // .skip((pageNumber - 1) * reviewPerPage)
-  //   // .limit(reviewPerPage)
-  //   // .populate("book", ["_id", "title", "author"]);
-  // } else {
-  //   reviews = await Review.find();
-  //   // .sort({ rating: 1 })
-  //   // .skip((pageNumber - 1) * reviewPerPage)
-  //   // .limit(reviewPerPage)
-  //   // .populate("book", ["_id", "title", "author"]);
-  // }
+  if (minRate && maxRate) {
+    reviews = await Review.find({
+      rating: { $gte: minRate, $lte: maxRate },
+    })
+      .sort({ rating: 1 })
+      .skip((pageNumber - 1) * reviewPerPage)
+      .limit(reviewPerPage)
+      .populate("book", ["_id", "title", "author"])
+      .populate("user", ["_id", "firstName", "lastName", "email"]);
+  } else {
+    reviews = await Review.find()
+      .sort({ rating: 1 })
+      .skip((pageNumber - 1) * reviewPerPage)
+      .limit(reviewPerPage)
+      .populate("book", ["_id", "title", "author"])
+      .populate("user", ["_id", "firstName", "lastName", "email"]);
+  }
 
-  // // const totalReviews = await Review.countDocuments({
-  // //   rating: { $gte: minRate, $lte: maxRate },
-  // // });
+  const totalReviews = await Review.countDocuments({
+    rating: { $gte: minRate, $lte: maxRate },
+  });
 
-  // res.status(200).json({
-  //   reviews,
-  //   // page: pageNumber,
-  //   // totalPages: Math.ceil(totalReviews / reviewPerPage),
-  //   // totalReviews,
-  // });
+  res.status(200).json({
+    reviews,
+    page: pageNumber,
+    totalPages: Math.ceil(totalReviews / reviewPerPage),
+    totalReviews,
+  });
 });
 
 /**
@@ -61,11 +61,9 @@ const getAllReviews = asyncHandler(async (req, res) => {
  * @access public
  */
 const getReviewById = asyncHandler(async (req, res) => {
-  const review = await Review.findById(req.params.id).populate("book", [
-    "_id",
-    "title",
-    "author",
-  ]);
+  const review = await Review.findById(req.params.id)
+    .populate("book", ["_id", "title", "author"])
+    .populate("user", ["_id", "firstName", "lastName", "email"]);
 
   if (review) {
     res.status(200).json(review);
@@ -87,9 +85,19 @@ const createNewReview = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: error.details[0].message });
   }
 
-  // TODO: check if this.user already make a review or not
-  // TODO:    If not he can update his review or do nothing.
+  // Check if the user has already reviewed this book
+  const existsReview = await Review.findOne({
+    user: req.body.user,
+    book: req.body.book,
+  });
 
+  if (existsReview) {
+    return res
+      .status(400)
+      .json({ message: "You have already reviwed this book!" });
+  }
+
+  // If no existing review, proceed to create a new review
   const review = await new Review(setReviewFields(req));
 
   const createdReview = await review.save();
@@ -119,7 +127,9 @@ const updateReview = asyncHandler(async (req, res) => {
         $set: setReviewFields(req),
       },
       { new: true }
-    );
+    )
+      .populate("book", ["_id", "title", "author"])
+      .populate("user", ["_id", "firstName", "lastName", "email"]);
 
     res.status(200).json(updatedReview);
   } else {
