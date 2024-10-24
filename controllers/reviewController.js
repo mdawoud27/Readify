@@ -32,14 +32,16 @@ const getAllReviews = asyncHandler(async (req, res) => {
       .skip((pageNumber - 1) * reviewPerPage)
       .limit(reviewPerPage)
       .populate("book", ["_id", "title", "author"])
-      .populate("user", ["_id", "firstName", "lastName", "email"]);
+      .populate("user", ["_id", "firstName", "lastName", "email"])
+      .select("-__v");
   } else {
     reviews = await Review.find()
       .sort({ rating: 1 })
       .skip((pageNumber - 1) * reviewPerPage)
       .limit(reviewPerPage)
       .populate("book", ["_id", "title", "author"])
-      .populate("user", ["_id", "firstName", "lastName", "email"]);
+      .populate("user", ["_id", "firstName", "lastName", "email"])
+      .select("-__v");
   }
 
   const totalReviews = await Review.countDocuments({
@@ -63,7 +65,8 @@ const getAllReviews = asyncHandler(async (req, res) => {
 const getReviewById = asyncHandler(async (req, res) => {
   const review = await Review.findById(req.params.id)
     .populate("book", ["_id", "title", "author"])
-    .populate("user", ["_id", "firstName", "lastName", "email"]);
+    .populate("user", ["_id", "firstName", "lastName", "email"])
+    .select("-__v");
 
   if (review) {
     res.status(200).json(review);

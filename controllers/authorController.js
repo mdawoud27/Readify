@@ -24,7 +24,8 @@ const getAllAuthors = asyncHandler(async (req, res) => {
     .sort({ firstName: -1 })
     .skip((pageNumber - 1) * authorPerPage)
     .limit(authorPerPage)
-    .populate("books", ["_id", "title"]);
+    .populate("books", ["_id", "title"])
+    .select("-__v");
   res.status(200).json(authors);
 });
 
@@ -35,10 +36,9 @@ const getAllAuthors = asyncHandler(async (req, res) => {
  * @access public
  */
 const getAuthorById = asyncHandler(async (req, res) => {
-  const author = await Author.findById(req.params.id).populate("books", [
-    "_id",
-    "title",
-  ]);
+  const author = await Author.findById(req.params.id)
+    .populate("books", ["_id", "title"])
+    .select("-__v");
 
   if (author) {
     res.status(200).json(author);

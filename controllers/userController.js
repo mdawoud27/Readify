@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { User } = require("../models/User");
 const { validateUpdateUser } = require("../utils/validators");
-const { fetchUserReviews } = require("../utils/userReviewSync");
+const { fetchUserReviews } = require("../utils/userReviewOrderSync");
 /**
  *  @desc    Get All Users
  *  @route   /api/users
@@ -22,10 +22,8 @@ const getAllUsers = asyncHandler(async (req, res) => {
     .select(["-password", "-__v"])
     .sort({ firstName: 1 })
     .skip((pageNumber - 1) * userPerPage)
-    .limit(userPerPage)
-    .populate("reviews");
-  // .populate("orders")
-  
+    .limit(userPerPage);
+
   // Define which fields you want to include or exclude from the reviews
   const reviewFields = "rating comment book"; // You can customize this dynamically
 
@@ -45,11 +43,12 @@ const getUserById = asyncHandler(async (req, res) => {
     .select("-password")
     .populate("reviews");
 
-  // Use the fetchUserReviews function to populate reviews for each user
-  await fetchUserReviews(users);
-
   if (user) {
-    res.status(200).json(user);
+    const reviewFields = "rating comment book";
+
+    // Fetch users with reviews and attach reviews with selected fields
+    const usersWithReviews = await fetchUserReviews([user], reviewFields);
+    res.status(200).json(usersWithReviews);
   } else {
     res.status(404).json({ success: false, message: "User NOT FOUND!" });
   }

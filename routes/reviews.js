@@ -20,10 +20,9 @@ router
   .post(verifyTokenAndAuthorization, createNewReview);
 
 // /api/reviews/:id
-// TODO: ADD `verifyTokenAndAuthorization` TO MAKE ROUTE PROTECTED
 router
   .route("/:id")
-  .get(getReviewById)
+  .get(verifyTokenAndAuthorization, getReviewById)
   .put(verifyTokenAndAuthorization, updateReview)
   .delete(verifyTokenAndAuthorization, deleteReview);
 

@@ -7,6 +7,7 @@ const {
   updateAuthorBooks,
   removeBooksFromOldAuthors,
 } = require("../utils/authorBookSync");
+const { fetchBookReviews } = require("../utils/bookReviewSync");
 const {
   validateCreateBook,
   validateUpdateBook,
@@ -34,20 +35,25 @@ const getAllBooks = asyncHandler(async (req, res) => {
     books = await Book.find({
       price: { $gte: minPrice, $lte: maxPrice },
     })
-      .populate("author", ["_id", "firstName", "lastName"])
       .sort({ title: 1 })
       .skip((pageNumber - 1) * authorPerPage)
       .limit(authorPerPage)
-      .populate("reviews");
+      .populate("author", ["_id", "firstName", "lastName"])
+      .select("-__v");
   } else {
     books = await Book.find()
       .sort({ title: -1 })
       .skip((pageNumber - 1) * authorPerPage)
       .limit(authorPerPage)
       .populate("author", ["_id", "firstName", "lastName"])
-      .populate("reviews");
+      .select("-__v");
   }
-  res.status(200).json(books);
+
+  const reviewFields = "rating comment user";
+
+  const booksWithReviews = await fetchBookReviews(books, reviewFields);
+
+  res.status(200).json(booksWithReviews);
 });
 
 /**
@@ -59,10 +65,15 @@ const getAllBooks = asyncHandler(async (req, res) => {
 const getBookById = asyncHandler(async (req, res) => {
   const book = await Book.findById(req.params.id)
     .populate("author", ["_id", "firstName", "lastName"])
-    .populate("reviews");
+    .populate("reviews", ["_id", "rating", "comment"])
+    .select("-__v");
 
   if (book) {
-    res.status(200).json(book);
+    const reviewFields = "rating comment user";
+
+    const booksWithReviews = await fetchBookReviews([book], reviewFields);
+
+    res.status(200).json(booksWithReviews);
   } else {
     res.status(404).json({ mesaage: "This book is NOT FOUND!" });
   }

@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { Order } = require("../models/Order");
+const { Book } = require("../models/Book");
 const {
   validateCreateOrder,
   validateUpdateOrder,
@@ -13,7 +14,10 @@ const {
  */
 const getAllOrders = asyncHandler(async (req, res) => {
   // TODO: add pagenation feature
-  const orders = await Order.find().populate(["user", "book"]);
+  const orders = await Order.find()
+    .populate("user", ["_id", "firstName", "lastName", "email"])
+    .populate("book", ["_id", "title", "author", "price"])
+    .select("-__v");
   res.status(200).json(orders);
 });
 
@@ -24,8 +28,10 @@ const getAllOrders = asyncHandler(async (req, res) => {
  * @access private - ONLY ADMINS and USER HIMSELF
  */
 const getOrderById = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id).populate(["user", "book"]);
-
+  const order = await Order.findById(req.params.id)
+    .populate("user", ["_id", "firstName", "lastName", "email"])
+    .populate("book", ["_id", "title", "author", "price"])
+    .select("-__v");
   if (order) {
     res.status(200).json(order);
   } else {
@@ -46,10 +52,31 @@ const createNewOrder = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: error.details[0].message });
   }
 
-  // TODO: check if user and book exist
+  // Check if the user has already make an order
+  const existsOrder = await Order.findOne({
+    user: req.body.user,
+    book: req.body.book,
+  });
 
-  // TODO: validate if `totalPrice` >= bookPrice
-  // TODO: update `totalPrice` to `totalPrice`
+  if (existsOrder) {
+    return res.status(400).json({ message: "This order already exists." });
+  }
+
+  const book = await Book.findById(req.body.book);
+
+  if (!book) {
+    return res.status(404).json({ message: "Book NOT FOUND!" });
+  }
+
+  const bookPrice = book.price;
+  const expectedTotalPrice = bookPrice * req.body.quantity;
+
+  if (req.body.totalPrice < expectedTotalPrice) {
+    return res.status(400).json({
+      message: `Total price should be at least ${expectedTotalPrice}`,
+    });
+  }
+
   const order = await new Order({
     quantity: req.body.quantity,
     totalPrice: req.body.totalPrice,
