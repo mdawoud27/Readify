@@ -122,6 +122,30 @@ function validateUpdateReview(obj) {
   return schema.validate(obj);
 }
 
+// Validate Create Order
+function validateCreateOrder(obj) {
+  const schema = Joi.object({
+    quantity: Joi.number().min(0).required(),
+    totalPrice: Joi.number().min(0).required(),
+    user: Joi.objectId().required(),
+    book: Joi.objectId().required(),
+  });
+
+  return schema.validate(obj);
+}
+
+// Validate Update Order
+function validateUpdateOrder(obj) {
+  const schema = Joi.object({
+    quantity: Joi.number().min(0),
+    totalPrice: Joi.number().min(0),
+    user: Joi.objectId(),
+    book: Joi.objectId(),
+  });
+
+  return schema.validate(obj);
+}
+
 module.exports = {
   validateCreateAuthor,
   validateUpdateAuthor,
@@ -132,4 +156,6 @@ module.exports = {
   validateLoginUser,
   validateCreateReview,
   validateUpdateReview,
+  validateCreateOrder,
+  validateUpdateOrder,
 };

@@ -25,8 +25,18 @@ function setReviewFields(req) {
   };
 }
 
+function setOrderFields(req) {
+  return {
+    ...(req.body.quantity && { quantity: req.body.quantity }),
+    ...(req.body.totalPrice && { totalPrice: req.body.totalPrice }),
+    user: req.body.user,
+    book: req.body.book,
+  };
+}
+
 module.exports = {
   setAuthorFields,
   setBookFields,
   setReviewFields,
+  setOrderFields,
 };
