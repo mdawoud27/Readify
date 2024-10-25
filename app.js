@@ -3,6 +3,7 @@ const { connectToMongoDB } = require("./config/db");
 const { connectToRedis } = require("./config/redis");
 const helmet = require("helmet");
 const cors = require("cors");
+const path = require("path");
 const { logger } = require("./middlewares/logger");
 const { notFound, errorHandler } = require("./middlewares/errorHandler");
 require("dotenv").config(); // Load enviroment variables
@@ -15,6 +16,9 @@ connectToMongoDB();
 
 // Connect to Redis
 connectToRedis();
+
+// Static Folder
+app.use(express.static(path.join(__dirname, "images")));
 
 // Middleware to parse JSON and form data
 app.use(express.json());
@@ -38,6 +42,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/reviews", require("./routes/reviews"));
 app.use("/api/orders", require("./routes/orders"));
 app.use("/password", require("./routes/password"));
+app.use("/api/upload", require("./routes/upload"));
 
 // Error Handler Middleware
 app.use(notFound);
