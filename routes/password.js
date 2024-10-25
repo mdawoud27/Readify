@@ -1,6 +1,5 @@
 const express = require("express");
 const {
-  // getPassword,
   getForgotPasswordView,
   sendForgotPasswordLink,
   getResetPasswordView,
@@ -8,9 +7,6 @@ const {
 } = require("../controllers/passwordController");
 
 const router = express.Router();
-
-// /password/
-// router.route("/").get(getPassword);
 
 // /password/forget-password
 router

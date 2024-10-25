@@ -1,21 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const { User } = require("../models/User");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const { validateChangePassword } = require("../utils/validators");
-
-/**
- * @desc   Get password root
- * @route  /password/
- * @method GET
- * @access public
- */
-// const getPassword = asyncHandler(async (req, res) => {
-//   res
-//     .status(200)
-//     .json({ message: `http://locahost:5000/password/forgot-password` });
-// });
+const { sendEmail } = require("../services/emailService");
 
 /**
  * @desc   Get forgot password view
@@ -47,34 +35,24 @@ const sendForgotPasswordLink = asyncHandler(async (req, res) => {
   });
 
   const link = `http://localhost:5000/password/reset-password/${user._id}/${token}`;
+  const emailHtml = `
+    <div>
+      <h4>Click on the link below to reset your password!</h4>
+      <p>${link}</p>
+    </div>`;
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.USER_EMAIL,
-      pass: process.env.USER_PASS,
-    },
-  });
+  try {
+    await sendEmail({
+      to: user.email,
+      subject: "Reset Password",
+      html: emailHtml,
+    });
 
-  const mailOptions = {
-    from: process.env.USER_EMAIL,
-    to: user.email,
-    subject: "Reset Password",
-    html: `<div>
-              <h4>Click on the link below to reset your password!</h4>
-              <p>${link}</p>
-          </div>`,
-  };
-
-  transporter.sendMail(mailOptions, function (error, success) {
-    if (error) {
-      console.log(`send mail error: ${error.message}`);
-      res.status(500).json({ message: "Something went wrong." });
-    } else {
-      console.log(`email sent: ${success.response}`);
-      res.render("link-send");
-    }
-  });
+    res.render("link-send");
+  } catch (error) {
+    console.log(`send mail error: ${error.message}`);
+    res.status(500).json({ message: "Something went wrong." });
+  }
 });
 
 /**
@@ -143,5 +121,4 @@ module.exports = {
   sendForgotPasswordLink,
   getResetPasswordView,
   resetThePassword,
-  // getPassword,
 };
