@@ -21,6 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger);
 
+// Set View Engine
+app.set("view engine", "ejs");
+
 // Helmet
 app.use(helmet());
 
@@ -34,6 +37,7 @@ app.use("/api/users", require("./routes/users"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/reviews", require("./routes/reviews"));
 app.use("/api/orders", require("./routes/orders"));
+app.use("/password", require("./routes/password"));
 
 // Error Handler Middleware
 app.use(notFound);

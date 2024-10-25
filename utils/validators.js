@@ -98,6 +98,15 @@ function validateLoginUser(obj) {
   return schema.validate(obj);
 }
 
+// Validate change password
+function validateChangePassword(obj) {
+  const schema = Joi.object({
+    password: Joi.string().trim().min(8).required(),
+  });
+
+  return schema.validate(obj);
+}
+
 // Validate Review creation
 function validateCreateReview(obj) {
   const schema = Joi.object({
@@ -154,6 +163,7 @@ module.exports = {
   validateUpdateUser,
   validateRegisterUser,
   validateLoginUser,
+  validateChangePassword,
   validateCreateReview,
   validateUpdateReview,
   validateCreateOrder,
