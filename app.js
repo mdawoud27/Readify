@@ -25,8 +25,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger);
 
-// Set View Engine
-app.set("view engine", "ejs");
+// Serve static files from the "views" directory
+app.use(express.static(path.join(__dirname, 'views')));
+
+app.set('view engine', 'ejs');
 
 // Helmet
 app.use(helmet());
@@ -35,6 +37,10 @@ app.use(helmet());
 app.use(cors());
 
 // Routes
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
 app.use("/api/authors", require("./routes/authors"));
 app.use("/api/books", require("./routes/books"));
 app.use("/api/users", require("./routes/users"));

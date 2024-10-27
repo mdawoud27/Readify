@@ -1,0 +1,16 @@
+<footer class="footer_section">
+  <div class="container">
+    <p>
+      Copyright &copy; <span id="displayYear"></span>
+      <a class="repo" href="https://github.com/mdawoud27/Readify">Readify</a>. All right
+      reserved.
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Get the current year
+  const year = new Date().getFullYear();
+  // Set the year in the displayYear span
+  document.getElementById("displayYear").textContent = year;
+</script>
