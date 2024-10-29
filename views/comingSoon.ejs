@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coming Soon</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        color: #333;
+        background-color: #f9f9f9;
+      }
+      .coming-soon-container {
+        text-align: center;
+        max-width: 500px;
+      }
+      .coming-soon-title {
+        font-size: 36px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .coming-soon-text {
+        font-size: 18px;
+        color: #666;
+        margin-bottom: 30px;
+      }
+      .countdown {
+        font-size: 24px;
+        color: #007bff;
+        margin-bottom: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="coming-soon-container">
+      <h1 class="coming-soon-title">Page Coming Soon</h1>
+      <p class="coming-soon-text">
+        We’re working hard to bring this page to you. Stay tuned!
+      </p>
+      <!-- <p class="countdown" id="countdown">
+        Launching in: <span id="timer">00:00:01:10</span>
+      </p> -->
+      <!-- <img
+        src="https://via.placeholder.com/300x200"
+        alt="Coming Soon Image"
+        class="img-fluid"
+      /> -->
+      <p class="mt-4">
+        <a href="/" class="btn btn-primary">Back to Home</a>
+      </p>
+    </div>
+
+    <!-- <script>
+      // Countdown timer logic (adjust launch date as needed)
+      const launchDate = new Date("2024-12-01T00:01:10").getTime();
+      const timerElement = document.getElementById("timer");
+
+      const countdown = setInterval(() => {
+        const now = new Date().getTime();
+        const timeLeft = launchDate - now;
+
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        if (timeLeft > 0) {
+          timerElement.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        } else {
+          timerElement.innerText = "The page is now live!";
+          clearInterval(countdown); // Stop the timer when countdown reaches zero
+        }
+      }, 1000);
+    </script> -->
+  </body>
+</html>

@@ -51,6 +51,10 @@ app.use("/password", require("./routes/password"));
 app.use("/api/upload", require("./routes/upload"));
 app.use("/api", require("./routes/contact"));
 
+app.get("/coming-soon", (req, res) => {
+  res.render("comingSoon"); // Render the comingSoon.ejs template
+});
+
 // Error Handler Middleware
 app.use(notFound);
 app.use(errorHandler);

@@ -19,7 +19,7 @@
           <div class="alert alert-danger"><%= error %></div>
           <% } %>
 
-          <form action="/api/auth/register" method="POST">
+          <form action="/api/auth/register" method="POST" id="registerForm">
             <div class="form-group">
               <label for="firstName">First Name</label>
               <input
@@ -74,6 +74,7 @@
               Sign Up
             </button>
           </form>
+          <div id="errorMessage" style="color: red;"></div>
           <p class="text-center mt-3">
             Already have an account? <a href="/api/auth/login">Login here</a>
           </p>
