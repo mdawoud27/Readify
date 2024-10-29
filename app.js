@@ -26,9 +26,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(logger);
 
 // Serve static files from the "views" directory
-app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, "views")));
 
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
 // Helmet
 app.use(helmet());
@@ -37,8 +37,8 @@ app.use(helmet());
 app.use(cors());
 
 // Routes
-app.get('/', (req, res) => {
-  res.render('index');
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
 app.use("/api/authors", require("./routes/authors"));
@@ -49,6 +49,7 @@ app.use("/api/reviews", require("./routes/reviews"));
 app.use("/api/orders", require("./routes/orders"));
 app.use("/password", require("./routes/password"));
 app.use("/api/upload", require("./routes/upload"));
+app.use("/api", require("./routes/contact"));
 
 // Error Handler Middleware
 app.use(notFound);

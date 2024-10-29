@@ -89,11 +89,10 @@ function validateLoginUser(obj) {
   const schema = Joi.object({
     // Either email or username must be provided
     email: Joi.string().email().trim().min(5).max(100),
-    username: Joi.string().trim().min(3).max(20),
-
-    // Require either username or email (at least one)
+    // username: Joi.string().trim().min(3).max(20),
     password: Joi.string().required(),
-  }).xor("email", "username"); // Ensures that only one of email or username is required
+  })
+  //.xor("email", "username"); // Ensures that only one of email or username is required
 
   return schema.validate(obj);
 }

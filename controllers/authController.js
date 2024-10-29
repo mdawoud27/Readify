@@ -61,6 +61,16 @@ const register = asyncHandler(async (req, res) => {
 });
 
 /**
+ * @desc   Get register view
+ * @route  /api/auth/register
+ * @method GET
+ * @access public
+ */
+const getRegisterView = asyncHandler(async (req, res) => {
+  res.render("signup", { error: null });
+});
+
+/**
  * @desc   Login user
  * @route  /api/auth/login
  * @method POST
@@ -74,9 +84,7 @@ const login = asyncHandler(async (req, res) => {
   }
 
   // const username = await User.findOne({ username: req.body.username });
-  const user = await User.findOne({
-    $or: [{ email: req.body.email }, { username: req.body.username }],
-  });
+  const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
     return res.status(400).json({ message: "Invalid email or password" });
@@ -97,7 +105,19 @@ const login = asyncHandler(async (req, res) => {
   res.status(200).json({ ...others, token });
 });
 
+/**
+ * @desc   Get login view
+ * @route  /api/auth/login
+ * @method GET
+ * @access public
+ */
+const getLoginView = asyncHandler(async (req, res) => {
+  res.render("login", { error: null });
+});
+
 module.exports = {
   register,
   login,
+  getRegisterView,
+  getLoginView,
 };

@@ -5,20 +5,32 @@
         <div class="heading_container">
           <h2 class="">Contact Us</h2>
         </div>
-        <form action="#" method="post">
+        <form id="contactForm" action="/api/contact" method="post">
+          <!-- Add id -->
           <div>
-            <input type="text" placeholder="Your Name" required />
+            <input type="text" name="name" placeholder="Your Name" required />
           </div>
           <div>
-            <input type="email" name="email" placeholder="Your Email" required />
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              required
+            />
           </div>
           <div>
-            <input type="text" placeholder="Phone Number" required />
+            <input
+              type="text"
+              name="phone"
+              placeholder="Phone Number"
+              required
+            />
           </div>
           <div>
             <input
               type="text"
               class="message-box"
+              name="message"
               placeholder="Your Message"
               required
             />
