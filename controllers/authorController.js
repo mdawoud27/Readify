@@ -43,7 +43,7 @@ const getAuthorById = asyncHandler(async (req, res) => {
   if (author) {
     res.status(200).json(author);
   } else {
-    res.status(404).json({ message: "This author is NOT FOUND!" });
+    res.status(404).json({ message: "Author NOT FOUND!" });
   }
 });
 
@@ -63,7 +63,8 @@ const createNewAuthor = asyncHandler(async (req, res) => {
   const author = new Author(setAuthorFields(req));
 
   const authorSaved = await author.save();
-  res.status(201).json(authorSaved);
+  const { __v, ...others } = authorSaved._doc;
+  res.status(201).json(others);
 });
 
 /**
@@ -94,7 +95,7 @@ const updateAuthor = asyncHandler(async (req, res) => {
       $set: updateData,
     },
     { new: true }
-  );
+  ).select("-__v");
 
   res.status(200).json(author);
 });
@@ -113,7 +114,7 @@ const deleteAuthor = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "This author is DELETED successfully." });
     return;
   } else {
-    res.status(404).json({ error: "This author is NOT FOUND!" });
+    res.status(404).json({ error: "Author NOT FOUND!" });
   }
 });
 

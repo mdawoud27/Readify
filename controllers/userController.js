@@ -40,7 +40,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
  */
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id)
-    .select("-password")
+    .select(["-password", "-__v"])
     .populate("reviews");
 
   if (user) {
@@ -90,7 +90,7 @@ const updateUser = asyncHandler(async (req, res) => {
         },
       },
       { new: true }
-    ); //.select("-password");
+    ).select(["-password", "-isAdmin", "-__v"]);
 
     res.status(200).json(updatedUser);
   } else {

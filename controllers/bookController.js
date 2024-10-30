@@ -65,7 +65,13 @@ const getAllBooks = asyncHandler(async (req, res) => {
 const getBookById = asyncHandler(async (req, res) => {
   const book = await Book.findById(req.params.id)
     .populate("author", ["_id", "firstName", "lastName"])
-    .populate("reviews", ["_id", "rating", "comment"])
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "user",
+        select: "_id firstName lastName email",
+      },
+    })
     .select("-__v");
 
   if (book) {
@@ -96,11 +102,13 @@ const creatNewBook = asyncHandler(async (req, res) => {
 
   const createdBook = await book.save();
 
+  const { __v, ...others } = createdBook._doc;
+
   // Execute the author-books updates
   updateAuthorBooks();
   removeBooksFromOldAuthors();
 
-  res.status(201).json(createdBook);
+  res.status(201).json(others);
 });
 
 /**
@@ -134,7 +142,7 @@ const updateBook = asyncHandler(async (req, res) => {
         $set: updateData,
       },
       { new: true }
-    );
+    ).select("-__v");
 
     // Execute the author-books updates
     updateAuthorBooks();

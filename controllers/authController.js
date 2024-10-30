@@ -55,7 +55,7 @@ const register = asyncHandler(async (req, res) => {
   const createdUser = await newUser.save();
   const token = newUser.generateToken();
 
-  const { password, ...others } = createdUser._doc;
+  const { password, __v, isAdmin, ...others } = createdUser._doc;
 
   res.status(201).json({ ...others, token });
 });
@@ -100,7 +100,7 @@ const login = asyncHandler(async (req, res) => {
   }
 
   const token = user.generateToken();
-  const { password, ...others } = user._doc;
+  const { password, __v, isAdmin, ...others } = user._doc;
 
   res.status(200).json({ ...others, token });
 });

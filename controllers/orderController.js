@@ -86,7 +86,22 @@ const createNewOrder = asyncHandler(async (req, res) => {
 
   const cretedOrder = await order.save();
 
-  res.status(201).json(cretedOrder);
+  const { __v, ...others } = cretedOrder._doc;
+
+  // Populate the created order before sending response
+  // const populatedOrder = await Order.findById(createdOrder._id)
+  //   .populate("user", ["_id", "firstName", "lastName", "email"])
+  //   .populate({
+  //     path: "book",
+  //     select: ["_id", "title", "author", "price"],
+  //     populate: {
+  //       path: "author",
+  //       select: ["_id", "firstName", "lastName"],
+  //     },
+  //   })
+  //   .select("-__v");
+
+  res.status(201).json(others);
 });
 
 /**
@@ -103,27 +118,83 @@ const updateOrder = asyncHandler(async (req, res) => {
   }
 
   const order = await Order.findById(req.params.id);
-
-  if (order) {
-    const updateData = {
-      ...(req.body.quantity && { quantity: req.body.quantity }),
-      ...(req.body.totalPrice && { totalPrice: req.body.totalPrice }),
-      ...(req.body.user && { user: req.body.user }),
-      ...(req.body.book && { book: req.body.book }),
-    };
-
-    const updatedOrder = await Order.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: updateData,
-      },
-      { new: true }
-    );
-
-    res.status(200).json(updatedOrder);
-  } else {
-    res.status(404).json({ message: "Order NOT FOUND!" });
+  if (!order) {
+    return res.status(404).json({ message: "Order NOT FOUND!" });
   }
+
+  // Get the book (either the existing one or the new one if book is being updated)
+  const bookId = req.body.book || order.book;
+  const book = await Book.findById(bookId);
+
+  if (!book) {
+    return res.status(404).json({ message: "Book NOT FOUND!" });
+  }
+
+  // Calculate expected total price based on book price and quantity
+  const newQuantity = req.body.quantity || order.quantity;
+  const expectedTotalPrice = book.price * newQuantity;
+
+  // If quantity is being updated, we need to check against the existing totalPrice
+  // unless a new totalPrice is also provided
+  if (req.body.quantity) {
+    const priceToCheck = req.body.totalPrice || order.totalPrice;
+
+    if (priceToCheck < expectedTotalPrice) {
+      return res.status(400).json({
+        message: `Total price should be at least ${expectedTotalPrice} for quantity ${newQuantity}`,
+        details: {
+          bookPrice: book.price,
+          quantity: newQuantity,
+          currentTotalPrice: priceToCheck,
+          minimumRequired: expectedTotalPrice,
+        },
+      });
+    }
+  }
+
+  // If totalPrice is being updated directly, check it against expected price
+  if (req.body.totalPrice && req.body.totalPrice < expectedTotalPrice) {
+    return res.status(400).json({
+      message: `Total price should be at least ${expectedTotalPrice}`,
+      details: {
+        bookPrice: book.price,
+        quantity: newQuantity,
+        providedTotalPrice: req.body.totalPrice,
+        minimumRequired: expectedTotalPrice,
+      },
+    });
+  }
+
+  const updateData = {
+    ...(req.body.quantity && {
+      quantity: req.body.quantity,
+      // If only quantity is updated, recalculate totalPrice based on minimum required
+      ...(!req.body.totalPrice && { totalPrice: expectedTotalPrice }),
+    }),
+    ...(req.body.totalPrice && { totalPrice: req.body.totalPrice }),
+    ...(req.body.user && { user: req.body.user }),
+    ...(req.body.book && { book: req.body.book }),
+  };
+
+  const updatedOrder = await Order.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: updateData,
+    },
+    { new: true }
+  )
+    .populate("user", ["_id", "firstName", "lastName", "email"])
+    .populate({
+      path: "book",
+      select: ["_id", "title", "author", "price"],
+      populate: {
+        path: "author",
+        select: ["_id", "firstName", "lastName"],
+      },
+    })
+    .select("-__v");
+
+  res.status(200).json(updatedOrder);
 });
 
 /**

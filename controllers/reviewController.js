@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { Review } = require("../models/Review");
+const { Book } = require("../models/Book");
 const {
   validateCreateReview,
   validateUpdateReview,
@@ -22,31 +23,27 @@ const getAllReviews = asyncHandler(async (req, res) => {
   }
 
   const reviewPerPage = 5;
-  let reviews;
 
-  if (minRate && maxRate) {
-    reviews = await Review.find({
-      rating: { $gte: minRate, $lte: maxRate },
-    })
-      .sort({ rating: 1 })
-      .skip((pageNumber - 1) * reviewPerPage)
-      .limit(reviewPerPage)
-      .populate("book", ["_id", "title", "author"])
-      .populate("user", ["_id", "firstName", "lastName", "email"])
-      .select("-__v");
-  } else {
-    reviews = await Review.find()
-      .sort({ rating: 1 })
-      .skip((pageNumber - 1) * reviewPerPage)
-      .limit(reviewPerPage)
-      .populate("book", ["_id", "title", "author"])
-      .populate("user", ["_id", "firstName", "lastName", "email"])
-      .select("-__v");
-  }
-
-  const totalReviews = await Review.countDocuments({
+  const query = {
     rating: { $gte: minRate, $lte: maxRate },
-  });
+  };
+
+  const reviews = await Review.find(query)
+    .sort({ rating: 1 })
+    .skip((pageNumber - 1) * reviewPerPage)
+    .limit(reviewPerPage)
+    .populate({
+      path: "book",
+      select: "_id title author",
+      populate: {
+        path: "author",
+        select: "_id firstName lastName",
+      },
+    })
+    .populate("user", ["_id", "firstName", "lastName", "email"])
+    .select("-__v");
+
+  const totalReviews = await Review.countDocuments(query);
 
   res.status(200).json({
     reviews,
@@ -88,6 +85,12 @@ const createNewReview = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: error.details[0].message });
   }
 
+  // Check if the book exists first
+  const book = await Book.findById(req.body.book);
+  if (!book) {
+    return res.status(404).json({ message: "Book not found" });
+  }
+
   // Check if the user has already reviewed this book
   const existsReview = await Review.findOne({
     user: req.body.user,
@@ -100,12 +103,22 @@ const createNewReview = asyncHandler(async (req, res) => {
       .json({ message: "You have already reviwed this book!" });
   }
 
-  // If no existing review, proceed to create a new review
+  // Create the review
   const review = await new Review(setReviewFields(req));
-
   const createdReview = await review.save();
 
-  res.status(201).json(createdReview);
+  // Update the book's reviews array
+  await Book.findByIdAndUpdate(req.body.book, {
+    $addToSet: { reviews: createdReview._id },
+  });
+
+  // Fetch the complete review with populated fields
+  const populatedReview = await Review.findById(createdReview._id)
+    .populate("book", ["_id", "title", "author"])
+    .populate("user", ["_id", "firstName", "lastName", "email"])
+    .select("-__v");
+
+  res.status(201).json(populatedReview);
 });
 
 /**
@@ -132,7 +145,8 @@ const updateReview = asyncHandler(async (req, res) => {
       { new: true }
     )
       .populate("book", ["_id", "title", "author"])
-      .populate("user", ["_id", "firstName", "lastName", "email"]);
+      .populate("user", ["_id", "firstName", "lastName", "email"])
+      .select("-__v");
 
     res.status(200).json(updatedReview);
   } else {

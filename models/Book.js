@@ -40,6 +40,12 @@ bookSchema.post("save", async function (doc, next) {
   next();
 });
 
+// Add this middleware to clean up reviews when a book is deleted
+bookSchema.pre("remove", async function (next) {
+  await Review.deleteMany({ book: this._id });
+  next();
+});
+
 module.exports = {
   Book: mongoose.model("Book", bookSchema),
 };
