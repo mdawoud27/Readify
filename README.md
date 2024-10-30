@@ -5,10 +5,10 @@
 **Readify** is a full-featured bookstore API that allows users to search, browse, and purchase books. It includes user authentication, book reviews, order management, and caching for optimal performance. Admins can manage books, authors, and users, all within a secure and efficient system.
 
 <!-- TODO: Demo -->
-<!--
-- Deployed Site: [Visit Readify](https://)
-- Made by **Mohamed Dawoud**: [GitHub](https://github.com/mdawoud27) | [LinkedIn](https://www.linkedin.com/in/dawoud27) | [Twitter](https://x.com/mad_d27) | [Medium](https://medium.com/@dawoud27) 
- -->
+
+<!-- - Deployed Site: [Visit Readify](https://) -->
+
+- Made by **Mohamed Dawoud**: [GitHub](https://github.com/mdawoud27) | [LinkedIn](https://www.linkedin.com/in/dawoud27) | [Twitter](https://x.com/mad_d27) | [Medium](https://medium.com/@dawoud27)
 
 ## Features
 
@@ -18,7 +18,6 @@
 - **Order Management:** Cart and wishlist functionality for seamless book purchasing.
 - **Admin Dashboard:** Admins can manage books, authors, and users.
 - **Caching:** Redis caching for improving search performance.
-- **Payment Integration:** Integration with Stripe or PayPal for handling payments (optional).
 
 ## Technologies Used
 
@@ -32,7 +31,7 @@
 
 ### Frontend
 
-- **HTML, CSS, and JavaScript/TypeScript**
+- **HTML, CSS, and JavaScript**
 - **EJS** for server-side templating
 
 ### DevOps
@@ -43,119 +42,121 @@
 
 ### Prerequisites
 
-- **Node.js** (v20+)
-- **MongoDB** (Local or Cloud, e.g., MongoDB Atlas)
+- **Node.js**
+- **MongoDB**
 - **Redis** (For caching)
-- **Git** (for version control)
 
 ## Installation
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/mdawoud27/Readify.git
-    cd Readify
-    ```
+   ```bash
+   git clone https://github.com/mdawoud27/Readify.git
+   cd Readify
+   ```
 
 2. Install dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 3. Set up your .env file:
 
-    ```bash
-    touch .env
-    ```
+   ```bash
+   touch .env
+   ```
 
-    Add the following environment variables:
+   Add the following environment variables:
 
-    ```bash
-    PORT=5000
-    MONGODB_URI=mongodb://localhost:27017/readify
-    JWT_SECRET=your_jwt_secret
-    REDIS_URL=redis://localhost:6379
-    ```
+   ```bash
+   PORT=5000
+   MONGODB_URI=mongodb://localhost:27017/readify
+   JWT_SECRET=your_jwt_secret
+   REDIS_URL=redis://localhost:6379
+   ```
 
 4. Run the application:
 
-    ```bash
-    npm start
-    ```
+   ```bash
+   npm start
+   ```
 
 5. Access the app at `http://localhost:5000`.
 
 ## API Endpoints
 
 ### Authentication
-<!-- TODO: Update the endpoints -->
-- **POST /api/auth/register**: Register a new user
-- **POST /api/auth/login**: Login a user and receive a JWT token
+
+- **`POST /api/auth/register`**: Register a new user
+- **`POST /api/auth/login`**: Login a user and receive a JWT token
+
+### Password
+
+- **`POST /password/forget-password`**: Send forgot password link
+- **`POST /password/forget-password/:userId/:token`**: Reset the password
 
 ### Books
-<!-- TODO: Update the endpoints -->
-- **GET /api/books**: Get a list of all books
-- **GET /api/books/**:id: Get a single book by its ID
-- **POST /api/books**: Add a new book (Admin only)
-- **PUT /api/books/**: Update a book (Admin only)
-- **DELETE /api/books/**: Delete a book (Admin only)
+
+- **`GET /api/books`**: Get a list of all books
+- **`GET /api/books/:id`**: Get a single book by its ID
+- **`POST /api/books`**: Add a new book (Admin only)
+- **`PUT /api/books/:id`**: Update a book (Admin only)
+- **`DELETE /api/books/:id`**: Delete a book (Admin only)
 
 ### Authors
-<!-- TODO: Update the endpoints -->
-- **GET /api/authors**: Get a list of all authors
-- **POST /api/authors**: Add a new author (Admin only)
+
+- **`GET /api/authors`**: Get a list of all authors
+- **`GET /api/authors/:id`**: Get a single author by its ID
+- **`POST /api/authors`**: Add a new author (Admin only)
+- **`PUT /api/authors/:id`**: Update an author (Admin only)
+- **`DELETE /api/authors/:id`**: Delete an author (Admin only)
 
 ### Users
-<!-- TODO: Update the endpoints -->
-- **GET /api/users/me**: Get the authenticated user’s profile
-- **PUT /api/users/me**: Update the authenticated user's profile
+
+- **`GET /api/users/`**: Get a list of all users (Admin only)
+- **`GET /api/users/:id`**: Get a user by id (Admin only and user himself)
+- **`PUT /api/users/:id`**: Update a user (Admin only and user himself)
+- **`DELETE /api/users/:id`**: Delete a user (Admin only and user himself)
 
 ### Orders
-<!-- TODO: Update the endpoints -->
-- **POST /api/orders**: Create a new order
-- **GET /api/orders**: Get user’s orders
+
+- **`GET /api/orders`**: Get all orders in the platform
+- **`GET /api/orders/:id`**: Get an order by id
+- **`POST /api/orders`**: Create a new order
+- **`PUT /api/orders/:id`**: Update an order
+- **`DELETE /api/orders/:id`**: Delete an order
 
 ### Reviews
-<!-- TODO: Update the endpoints -->
-- **POST /api/books/**
-  
-  **/reviews**: Add a review to a book
 
-- **GET /api/books/**
-  
-  **/reviews**: Get all reviews for a book
+- **`GET /api/reviews`**: Get all reviews in the platform
+- **`GET /api/reviews/:id`**: Get a review by id
+- **`POST /api/reviews`**: Create a new review
+- **`PUT /api/reviews/:id`**: Update a review
+- **`DELETE /api/reviews/:id`**: Delete a review
 
-<!--
+### Upload
+
+- **`POST /api/upload`**: Upload images
+
+### Contact
+
+- **`POST /api/contact`**: Contact form submission
+
 ## Future Features
 
 - **Email Notifications**: Send users updates on their orders.
-- **Search Autocomplete**: Provide search suggestions using Redis.
+- **Search Autocomplete**: Provide search suggestions using **_Redis_**.
 - **Recommendations**: Recommend books based on user preferences.
+- **Payment Integration:** Integration with Stripe or PayPal for handling payments.
+- **Tests**: Test all app features using **_jest_** framework.
+- **Complete Frontend**: to be a full-stack project.
 - **Docker** for containerization
 
 ## Challenges & Solutions
 
 - **Performance Optimization**: Using Redis to cache frequent queries, like book searches.
-- **Secure Payments**: Integrating a reliable payment gateway for secure book purchases. 
- -->
-
-<!--
-## Development Schedule
-
-| **Task**                         | **Timeline**        |
-|----------------------------------|---------------------|
-| Project Setup                    | Day 1               |
-| User Authentication              | Day 2-3             |
-| Book & Author Management         | Day 4-5             |
-| Redis Caching                    | Day 6-7             |
-| Reviews & Ratings                | Day 8               |
-| Order Management                 | Day 9               |
-| Frontend (Views, EJS templates)  | Day 10              |
-| Payment Gateway Integration      | Day 11              |
-| Testing & Debugging              | Day 12              |
-| Final Deployment & Documentation | Day 13-14           |
- -->
+- **Secure Payments**: Integrating a reliable payment gateway for secure book purchases.
 
 <!--## Tree of the project
 
@@ -215,6 +216,11 @@ readify/
     └── user.test.js        # Tests for user-related endpoints
 ```
 -->
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://) file for details.
+
 ## Contribution
 
 1. Fork the project
@@ -222,12 +228,3 @@ readify/
 3. Commit your changes (`git commit -m 'feat: <short-description>'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](https://) file for details.
-
-## Contact
-
-- Deployed Site: [Visit Readify](https://)
-- Made by **Mohamed Dawoud**: [GitHub](https://github.com/mdawoud27) | [LinkedIn](https://www.linkedin.com/in/dawoud27) | [Twitter](https://x.com/mad_d27) | [Medium](https://medium.com/@dawoud27)

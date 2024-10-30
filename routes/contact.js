@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { sendEmail } = require("../services/emailService"); // Adjust the path as needed
+const { sendEmail } = require("../services/emailService");
 
 // Handle contact form submission
 router.post("/contact", async (req, res) => {
@@ -18,7 +18,7 @@ router.post("/contact", async (req, res) => {
 
   try {
     await sendEmail({
-      to: process.env.USER_EMAIL, // Replace with your email or use an environment variable
+      to: process.env.USER_EMAIL,
       subject,
       html,
     });

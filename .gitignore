@@ -10,3 +10,4 @@ token.txt
 tests/
 notes*
 test.js
+.vercel

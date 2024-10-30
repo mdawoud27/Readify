@@ -10,7 +10,7 @@ const {
  * @decs   Get all orders
  * @route  /api/orders/
  * @method GET
- * @access private - ONLY ADMINS and USER HIMSELF
+ * @access private - ONLY ADMINS
  */
 const getAllOrders = asyncHandler(async (req, res) => {
   // TODO: add pagenation feature
