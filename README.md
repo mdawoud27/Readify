@@ -1,12 +1,24 @@
 # Readify - BookStore API Application
 
+## Table of Contents
+
+- [Description](#description)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [API Endpoints](#api-endpoints)
+- [Future Features](#future-features)
+- [Challenges & Solutions](#challenges--solutions)
+- [License](#license)
+- [Contribution](#contribution)
+
 ## Description
 
 **Readify** is a full-featured bookstore API that allows users to search, browse, and purchase books. It includes user authentication, book reviews, order management, and caching for optimal performance. Admins can manage books, authors, and users, all within a secure and efficient system.
 
 <!-- TODO: Demo -->
 
-<!-- - Deployed Site: [Visit Readify](https://) -->
+- Deployed Site: [Visit Readify](https://readify-beige.vercel.app/) - **NOT COMPLETED YET**!
 
 - Made by **Mohamed Dawoud**: [GitHub](https://github.com/mdawoud27) | [LinkedIn](https://www.linkedin.com/in/dawoud27) | [Twitter](https://x.com/mad_d27) | [Medium](https://medium.com/@dawoud27)
 
@@ -36,7 +48,7 @@
 
 ### DevOps
 
-- **Vercel** for deployment using **gitHub actions**
+- **Vercel** for deployment using **GitHub Actions**
 
 ## Getting Started
 
@@ -150,7 +162,7 @@
 - **Recommendations**: Recommend books based on user preferences.
 - **Payment Integration:** Integration with Stripe or PayPal for handling payments.
 - **Tests**: Test all app features using **_jest_** framework.
-- **Complete Frontend**: to be a full-stack project.
+- **Complete Frontend**: Update Frontend Stack.
 - **Docker** for containerization
 
 ## Challenges & Solutions
