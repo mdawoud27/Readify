@@ -18,7 +18,7 @@
 
 [Demo](https://)
 
-[Readify Deployment](https://) _(Soon)_
+[Readify Deployment]() _(Soon)_
 
 [Docs](https://docs.google.com/presentation/d/1v05h9lUmALioyo76DtdWdrXOouYxqT6L/edit#slide=id.p1)
 
