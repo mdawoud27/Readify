@@ -1,0 +1,82 @@
+[
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "biography": "An American author known for his thrillers.",
+    "nationality": "American",
+    "image": "default-avatar.png",
+    "books": []
+  },
+  {
+    "firstName": "Alice",
+    "lastName": "Smith",
+    "biography": "British author with a passion for historical novels.",
+    "nationality": "British",
+    "image": "default-avatar.png",
+    "books": []
+  },
+  {
+    "firstName": "Hiroshi",
+    "lastName": "Tanaka",
+    "biography": "Japanese author focusing on modern-day societal issues.",
+    "nationality": "Japanese",
+    "image": "default-avatar.png",
+    "books": []
+  },
+  {
+    "firstName": "Elena",
+    "lastName": "Garcia",
+    "biography": "Spanish novelist celebrated for her romantic works.",
+    "nationality": "Spanish",
+    "image": "default-avatar.png",
+    "books": []
+  },
+  {
+    "firstName": "Liam",
+    "lastName": "O'Reilly",
+    "biography": "Irish author known for his fantasy series.",
+    "nationality": "Irish",
+    "image": "default-avatar.png",
+    "books": []
+  },
+  {
+    "firstName": "Sophie",
+    "lastName": "Müller",
+    "biography": "German author famous for psychological thrillers.",
+    "nationality": "German",
+    "image": "default-avatar.png",
+    "books": []
+  },
+  {
+    "firstName": "Carlos",
+    "lastName": "Hernandez",
+    "biography": "Brazilian author exploring the complexities of urban life.",
+    "nationality": "Brazilian",
+    "image": "default-avatar.png",
+    "books": []
+  },
+  {
+    "firstName": "Marie",
+    "lastName": "Dubois",
+    "biography": "French writer with a keen interest in science fiction.",
+    "nationality": "French",
+    "image": "default-avatar.png",
+    "books": []
+  },
+  {
+    "firstName": "Anwar",
+    "lastName": "Khan",
+    "biography": "Pakistani author known for his philosophical works.",
+    "nationality": "Pakistani",
+    "image": "default-avatar.png",
+    "books": []
+  },
+  {
+    "firstName": "Olga",
+    "lastName": "Petrova",
+    "biography": "Russian author popular for her detective novels.",
+    "nationality": "Russian",
+    "image": "default-avatar.png",
+    "books": []
+  }
+]

@@ -1,0 +1,162 @@
+[
+  {
+    "title": "The Victorian Secret",
+    "author": "672919176a46b41f4d5eefdd",
+    "description": "A compelling historical novel set in 19th century London, following the life of a young seamstress who becomes entangled in royal court intrigue.",
+    "price": 29.99,
+    "cover": "hard-cover",
+    "reviews": []
+  },
+  {
+    "title": "Tokyo Nights",
+    "author": "672919176a46b41f4d5eefde",
+    "description": "A contemporary tale exploring the isolation and technological dependence in modern Japanese society through the eyes of a young programmer.",
+    "price": 24.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "Amor en Barcelona",
+    "author": "672919176a46b41f4d5eefdf",
+    "description": "A passionate romance set against the backdrop of Barcelona's vibrant art scene, following two painters who find love amid creative rivalry.",
+    "price": 19.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "The Emerald Crown",
+    "author": "672919176a46b41f4d5eefe0",
+    "description": "First in an epic fantasy trilogy about an ancient Irish prophecy and a magical crown that holds the power to unite or destroy the realm.",
+    "price": 27.99,
+    "cover": "hard-cover",
+    "reviews": []
+  },
+  {
+    "title": "Silent Whispers",
+    "author": "672919176a46b41f4d5eefe1",
+    "description": "A gripping psychological thriller about a Berlin psychologist who discovers her patients are connected to a series of mysterious disappearances.",
+    "price": 22.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "Shadows of Tudor London",
+    "author": "672919176a46b41f4d5eefdd",
+    "description": "A historical mystery set in the dangerous world of Tudor England, where a merchant's daughter must solve a royal conspiracy.",
+    "price": 25.99,
+    "cover": "hard-cover",
+    "reviews": []
+  },
+  {
+    "title": "The Silent Streets",
+    "author": "672919176a46b41f4d5eefde",
+    "description": "An exploration of urban isolation in contemporary Tokyo, following the intersecting lives of five strangers during a citywide power outage.",
+    "price": 21.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "Coração do Rio",
+    "author": "672919176a46b41f4d5eefe2",
+    "description": "A vivid portrayal of life in Rio de Janeiro's diverse neighborhoods, weaving together stories of love, struggle, and redemption.",
+    "price": 23.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "Les Étoiles Mécaniques",
+    "author": "672919176a46b41f4d5eefe3",
+    "description": "A groundbreaking science fiction novel about a future where humans have begun colonizing mechanical stars.",
+    "price": 26.99,
+    "cover": "hard-cover",
+    "reviews": []
+  },
+  {
+    "title": "Moscow Midnight",
+    "author": "672919176a46b41f4d5eefe4",
+    "description": "A sophisticated detective novel featuring Inspector Valentina Petrova solving a complex case in the snowy streets of Moscow.",
+    "price": 24.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "The Last Chapter",
+    "author": "672919176a46b41f4d5eefe5",
+    "description": "A heart-pounding thriller about a bestselling author who discovers his fictional murders are being recreated in real life.",
+    "price": 28.99,
+    "cover": "hard-cover",
+    "reviews": []
+  },
+  {
+    "title": "Whispers of the Silk Road",
+    "author": "672919176a46b41f4d5eefe6",
+    "description": "A philosophical journey following a young scholar's spiritual awakening as he travels the ancient Silk Road.",
+    "price": 20.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "Digital Dreams",
+    "author": "672919176a46b41f4d5eefde",
+    "description": "A compelling narrative about virtual reality addiction and its impact on traditional Japanese family values.",
+    "price": 22.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "Celtic Shadows",
+    "author": "672919176a46b41f4d5eefe0",
+    "description": "A magical tale weaving Irish mythology with contemporary fantasy, as ancient gods walk among unknowing mortals.",
+    "price": 25.99,
+    "cover": "hard-cover",
+    "reviews": []
+  },
+  {
+    "title": "The Berlin Patient",
+    "author": "672919176a46b41f4d5eefe1",
+    "description": "A tense psychological thriller about a therapist who becomes obsessed with solving her patient's mysterious past.",
+    "price": 23.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "Favela Dreams",
+    "author": "672919176a46b41f4d5eefe2",
+    "description": "An inspiring story of hope and resilience in Rio's favelas, following a young artist's journey to success.",
+    "price": 19.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "Quantum Paris",
+    "author": "672919176a46b41f4d5eefe3",
+    "description": "A mind-bending science fiction novel about parallel universes converging in the City of Light.",
+    "price": 27.99,
+    "cover": "hard-cover",
+    "reviews": []
+  },
+  {
+    "title": "The St. Petersburg Cipher",
+    "author": "672919176a46b41f4d5eefe4",
+    "description": "A complex detective story involving historical artifacts, secret societies, and modern-day espionage.",
+    "price": 26.99,
+    "cover": "hard-cover",
+    "reviews": []
+  },
+  {
+    "title": "Deadline",
+    "author": "672919176a46b41f4d5eefe5",
+    "description": "A fast-paced thriller about an investigative journalist who uncovers a conspiracy that puts his life in danger.",
+    "price": 24.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "The Sufi's Path",
+    "author": "672919176a46b41f4d5eefe6",
+    "description": "A deeply philosophical novel exploring Sufi mysticism and its relevance in the modern world.",
+    "price": 21.99,
+    "cover": "soft-cover",
+    "reviews": []
+  }
+]
