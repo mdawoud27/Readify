@@ -25,7 +25,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
     .limit(userPerPage);
 
   // Define which fields you want to include or exclude from the reviews
-  const reviewFields = "rating comment book"; // You can customize this dynamically
+  const reviewFields = "rating comment book";
 
   // Fetch users with reviews and attach reviews with selected fields
   const usersWithReviews = await fetchUserReviews(users, reviewFields);

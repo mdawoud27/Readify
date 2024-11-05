@@ -9,6 +9,7 @@ const {
 const {
   verifyTokenAndAdmin,
   verifyTokenAndAuthorization,
+  verifyOrderAuthorization,
 } = require("../middlewares/verifyToken");
 
 const router = express.Router();
@@ -22,8 +23,8 @@ router
 // /api/orders/:id
 router
   .route("/:id")
-  .get(verifyTokenAndAuthorization, getOrderById)
-  .put(verifyTokenAndAuthorization, updateOrder)
-  .delete(verifyTokenAndAuthorization, deleteOrder);
+  .get(verifyOrderAuthorization, getOrderById)
+  .put(verifyOrderAuthorization, updateOrder)
+  .delete(verifyOrderAuthorization, deleteOrder);
 
 module.exports = router;

@@ -77,7 +77,7 @@ const createNewOrder = asyncHandler(async (req, res) => {
     });
   }
 
-  const order = await new Order({
+  const order = new Order({
     quantity: req.body.quantity,
     totalPrice: req.body.totalPrice,
     user: req.body.user,
@@ -87,19 +87,6 @@ const createNewOrder = asyncHandler(async (req, res) => {
   const cretedOrder = await order.save();
 
   const { __v, ...others } = cretedOrder._doc;
-
-  // Populate the created order before sending response
-  // const populatedOrder = await Order.findById(createdOrder._id)
-  //   .populate("user", ["_id", "firstName", "lastName", "email"])
-  //   .populate({
-  //     path: "book",
-  //     select: ["_id", "title", "author", "price"],
-  //     populate: {
-  //       path: "author",
-  //       select: ["_id", "firstName", "lastName"],
-  //     },
-  //   })
-  //   .select("-__v");
 
   res.status(201).json(others);
 });

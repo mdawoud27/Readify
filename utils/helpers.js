@@ -20,7 +20,7 @@ function setReviewFields(req) {
   return {
     ...(req.body.rating && { rating: req.body.rating }),
     ...(req.body.comment && { comment: req.body.comment }),
-    user: req.body.user, // Keep the user and book as they are required fields.
+    user: req.body.user,
     book: req.body.book,
   };
 }

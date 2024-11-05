@@ -7,8 +7,8 @@ const {
   deleteReview,
 } = require("../controllers/reviewController");
 const {
-  verifyTokenAndAdmin,
   verifyTokenAndAuthorization,
+  verifyReviewAuthorization,
 } = require("../middlewares/verifyToken");
 
 const router = express.Router();
@@ -22,8 +22,8 @@ router
 // /api/reviews/:id
 router
   .route("/:id")
-  .get(verifyTokenAndAuthorization, getReviewById)
-  .put(verifyTokenAndAuthorization, updateReview)
-  .delete(verifyTokenAndAuthorization, deleteReview);
+  .get(verifyReviewAuthorization, getReviewById)
+  .put(verifyReviewAuthorization, updateReview)
+  .delete(verifyReviewAuthorization, deleteReview);
 
 module.exports = router;

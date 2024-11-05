@@ -10,7 +10,7 @@ const bookSchema = mongoose.Schema(
       maxlength: 200,
     },
     author: {
-      type: mongoose.Schema.Types.ObjectId, // Link to Author
+      type: mongoose.Schema.Types.ObjectId, 
       ref: "Author",
       required: true,
     },
@@ -23,7 +23,7 @@ const bookSchema = mongoose.Schema(
     },
     price: { type: Number, min: 0, required: true },
     cover: { type: String, required: true, enum: ["soft-cover", "hard-cover"] },
-    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }], // Reference to Review model
+    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }], 
   },
   { timestamps: true }
 );
@@ -40,7 +40,7 @@ bookSchema.post("save", async function (doc, next) {
   next();
 });
 
-// Add this middleware to clean up reviews when a book is deleted
+// clean up reviews when a book is deleted
 bookSchema.pre("remove", async function (next) {
   await Review.deleteMany({ book: this._id });
   next();
