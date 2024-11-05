@@ -1,161 +1,161 @@
 [
   {
-    "title": "The Victorian Secret",
-    "author": "672919176a46b41f4d5eefdd",
-    "description": "A compelling historical novel set in 19th century London, following the life of a young seamstress who becomes entangled in royal court intrigue.",
+    "title": "The Last Witness",
+    "author": "6729fd0654cb294d2c3eebb1",
+    "description": "A gripping thriller about a detective racing against time to catch a serial killer before they strike again.",
     "price": 29.99,
     "cover": "hard-cover",
     "reviews": []
   },
   {
-    "title": "Tokyo Nights",
-    "author": "672919176a46b41f4d5eefde",
-    "description": "A contemporary tale exploring the isolation and technological dependence in modern Japanese society through the eyes of a young programmer.",
+    "title": "Silent Echo",
+    "author": "6729fd0654cb294d2c3eebb1",
+    "description": "When a small town's secrets begin to unravel, no one is safe from the truth.",
     "price": 24.99,
     "cover": "soft-cover",
     "reviews": []
   },
   {
-    "title": "Amor en Barcelona",
-    "author": "672919176a46b41f4d5eefdf",
-    "description": "A passionate romance set against the backdrop of Barcelona's vibrant art scene, following two painters who find love amid creative rivalry.",
+    "title": "Streets of São Paulo",
+    "author": "6729fd0654cb294d2c3eebb2",
+    "description": "A vivid portrayal of life in Brazil's largest city through interconnected stories.",
     "price": 19.99,
     "cover": "soft-cover",
     "reviews": []
   },
   {
-    "title": "The Emerald Crown",
-    "author": "672919176a46b41f4d5eefe0",
-    "description": "First in an epic fantasy trilogy about an ancient Irish prophecy and a magical crown that holds the power to unite or destroy the realm.",
+    "title": "Urban Rhythms",
+    "author": "6729fd0654cb294d2c3eebb2",
+    "description": "Contemporary tales of love and loss in the bustling streets of Rio de Janeiro.",
+    "price": 22.99,
+    "cover": "hard-cover",
+    "reviews": []
+  },
+  {
+    "title": "Amor Eterno",
+    "author": "6729fd0654cb294d2c3eebb3",
+    "description": "A passionate romance set in the beautiful landscapes of Barcelona.",
+    "price": 18.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "Midnight in Madrid",
+    "author": "6729fd0654cb294d2c3eebb3",
+    "description": "Two lovers navigate their relationship through the vibrant nightlife of Spain's capital.",
+    "price": 21.99,
+    "cover": "hard-cover",
+    "reviews": []
+  },
+  {
+    "title": "The Crystal Kingdom",
+    "author": "6729fd0654cb294d2c3eebb4",
+    "description": "First book in an epic fantasy trilogy about a hidden realm of magic and mystery.",
     "price": 27.99,
     "cover": "hard-cover",
     "reviews": []
   },
   {
-    "title": "Silent Whispers",
-    "author": "672919176a46b41f4d5eefe1",
-    "description": "A gripping psychological thriller about a Berlin psychologist who discovers her patients are connected to a series of mysterious disappearances.",
-    "price": 22.99,
-    "cover": "soft-cover",
-    "reviews": []
-  },
-  {
-    "title": "Shadows of Tudor London",
-    "author": "672919176a46b41f4d5eefdd",
-    "description": "A historical mystery set in the dangerous world of Tudor England, where a merchant's daughter must solve a royal conspiracy.",
+    "title": "Dragons of Avalon",
+    "author": "6729fd0654cb294d2c3eebb4",
+    "description": "A mythical adventure inspired by Celtic folklore and legend.",
     "price": 25.99,
     "cover": "hard-cover",
     "reviews": []
   },
   {
-    "title": "The Silent Streets",
-    "author": "672919176a46b41f4d5eefde",
-    "description": "An exploration of urban isolation in contemporary Tokyo, following the intersecting lives of five strangers during a citywide power outage.",
-    "price": 21.99,
-    "cover": "soft-cover",
-    "reviews": []
-  },
-  {
-    "title": "Coração do Rio",
-    "author": "672919176a46b41f4d5eefe2",
-    "description": "A vivid portrayal of life in Rio de Janeiro's diverse neighborhoods, weaving together stories of love, struggle, and redemption.",
+    "title": "Beyond the Stars",
+    "author": "6729fd0654cb294d2c3eebb5",
+    "description": "A groundbreaking science fiction novel about humanity's first contact with alien civilization.",
     "price": 23.99,
-    "cover": "soft-cover",
-    "reviews": []
-  },
-  {
-    "title": "Les Étoiles Mécaniques",
-    "author": "672919176a46b41f4d5eefe3",
-    "description": "A groundbreaking science fiction novel about a future where humans have begun colonizing mechanical stars.",
-    "price": 26.99,
     "cover": "hard-cover",
     "reviews": []
   },
   {
-    "title": "Moscow Midnight",
-    "author": "672919176a46b41f4d5eefe4",
-    "description": "A sophisticated detective novel featuring Inspector Valentina Petrova solving a complex case in the snowy streets of Moscow.",
-    "price": 24.99,
+    "title": "Time Paradox",
+    "author": "6729fd0654cb294d2c3eebb5",
+    "description": "A mind-bending exploration of time travel and its consequences.",
+    "price": 26.99,
     "cover": "soft-cover",
     "reviews": []
   },
   {
-    "title": "The Last Chapter",
-    "author": "672919176a46b41f4d5eefe5",
-    "description": "A heart-pounding thriller about a bestselling author who discovers his fictional murders are being recreated in real life.",
+    "title": "The Mind's Edge",
+    "author": "6729fd0654cb294d2c3eebb6",
+    "description": "A psychological thriller that blurs the lines between reality and imagination.",
+    "price": 24.99,
+    "cover": "hard-cover",
+    "reviews": []
+  },
+  {
+    "title": "Dark Corridors",
+    "author": "6729fd0654cb294d2c3eebb6",
+    "description": "A haunting tale of suspense set in an abandoned psychiatric hospital.",
+    "price": 22.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "Tudor Rose",
+    "author": "6729fd0654cb294d2c3eebb7",
+    "description": "A meticulously researched historical novel about the Tudor dynasty.",
     "price": 28.99,
     "cover": "hard-cover",
     "reviews": []
   },
   {
-    "title": "Whispers of the Silk Road",
-    "author": "672919176a46b41f4d5eefe6",
-    "description": "A philosophical journey following a young scholar's spiritual awakening as he travels the ancient Silk Road.",
+    "title": "Victorian Shadows",
+    "author": "6729fd0654cb294d2c3eebb7",
+    "description": "Mystery and romance intertwine in this Victorian-era adventure.",
+    "price": 25.99,
+    "cover": "soft-cover",
+    "reviews": []
+  },
+  {
+    "title": "Tokyo Dreams",
+    "author": "6729fd0654cb294d2c3eebb8",
+    "description": "An exploration of youth culture and social pressure in modern Japan.",
     "price": 20.99,
     "cover": "soft-cover",
     "reviews": []
   },
   {
-    "title": "Digital Dreams",
-    "author": "672919176a46b41f4d5eefde",
-    "description": "A compelling narrative about virtual reality addiction and its impact on traditional Japanese family values.",
-    "price": 22.99,
-    "cover": "soft-cover",
-    "reviews": []
-  },
-  {
-    "title": "Celtic Shadows",
-    "author": "672919176a46b41f4d5eefe0",
-    "description": "A magical tale weaving Irish mythology with contemporary fantasy, as ancient gods walk among unknowing mortals.",
-    "price": 25.99,
-    "cover": "hard-cover",
-    "reviews": []
-  },
-  {
-    "title": "The Berlin Patient",
-    "author": "672919176a46b41f4d5eefe1",
-    "description": "A tense psychological thriller about a therapist who becomes obsessed with solving her patient's mysterious past.",
+    "title": "Digital Lives",
+    "author": "6729fd0654cb294d2c3eebb8",
+    "description": "A compelling look at how technology shapes human relationships in contemporary society.",
     "price": 23.99,
-    "cover": "soft-cover",
-    "reviews": []
-  },
-  {
-    "title": "Favela Dreams",
-    "author": "672919176a46b41f4d5eefe2",
-    "description": "An inspiring story of hope and resilience in Rio's favelas, following a young artist's journey to success.",
-    "price": 19.99,
-    "cover": "soft-cover",
-    "reviews": []
-  },
-  {
-    "title": "Quantum Paris",
-    "author": "672919176a46b41f4d5eefe3",
-    "description": "A mind-bending science fiction novel about parallel universes converging in the City of Light.",
-    "price": 27.99,
     "cover": "hard-cover",
     "reviews": []
   },
   {
-    "title": "The St. Petersburg Cipher",
-    "author": "672919176a46b41f4d5eefe4",
-    "description": "A complex detective story involving historical artifacts, secret societies, and modern-day espionage.",
+    "title": "Moscow Midnight",
+    "author": "6729fd0654cb294d2c3eebb9",
+    "description": "A complex detective story set in the heart of modern Russia.",
     "price": 26.99,
     "cover": "hard-cover",
     "reviews": []
   },
   {
-    "title": "Deadline",
-    "author": "672919176a46b41f4d5eefe5",
-    "description": "A fast-paced thriller about an investigative journalist who uncovers a conspiracy that puts his life in danger.",
+    "title": "The Winter Detective",
+    "author": "6729fd0654cb294d2c3eebb9",
+    "description": "A series of mysterious disappearances leads to an international conspiracy.",
     "price": 24.99,
     "cover": "soft-cover",
     "reviews": []
   },
   {
-    "title": "The Sufi's Path",
-    "author": "672919176a46b41f4d5eefe6",
-    "description": "A deeply philosophical novel exploring Sufi mysticism and its relevance in the modern world.",
-    "price": 21.99,
+    "title": "The Philosopher's Journey",
+    "author": "6729fd0654cb294d2c3eebba",
+    "description": "A profound exploration of existence through the lens of Eastern and Western philosophy.",
+    "price": 27.99,
+    "cover": "hard-cover",
+    "reviews": []
+  },
+  {
+    "title": "Wisdom of the Ages",
+    "author": "6729fd0654cb294d2c3eebba",
+    "description": "Ancient philosophical teachings applied to modern-day challenges.",
+    "price": 25.99,
     "cover": "soft-cover",
     "reviews": []
   }
