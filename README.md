@@ -16,11 +16,11 @@
 
 **Readify** is a full-featured bookstore API that allows users to search, browse, and purchase books. It includes user authentication, book reviews, order management, and caching for optimal performance. Admins can manage books, authors, and users, all within a secure and efficient system.
 
-[Demo](https://)
+[Demo](https://drive.google.com/file/d/1Bm1kbtUvZR95Emg1J_eXvYwfHkWd-BdV/view?usp=drive_link)
+
+[Presentation](https://docs.google.com/presentation/d/1v05h9lUmALioyo76DtdWdrXOouYxqT6L/edit#slide=id.p1)
 
 [Readify Deployment]() _(Soon)_
-
-[Docs](https://docs.google.com/presentation/d/1v05h9lUmALioyo76DtdWdrXOouYxqT6L/edit#slide=id.p1)
 
 Made by **Mohamed Dawoud**: [GitHub](https://github.com/mdawoud27) | [LinkedIn](https://www.linkedin.com/in/dawoud27) | [Twitter](https://x.com/mad_d27) | [Medium](https://medium.com/@dawoud27)
 
@@ -107,6 +107,18 @@ Made by **Mohamed Dawoud**: [GitHub](https://github.com/mdawoud27) | [LinkedIn](
 
 5. Access the app at `http://localhost:5000`.
 
+6. Insert data (optional cause you can insert your own)
+
+   ```bash
+   cd data/
+
+   # Insert authors
+   mongoimport --uri "mongodb://localhost:27017" --db readify --collection authors --file $(pwd)/authors.json --jsonArray
+
+   # Insert books
+   mongoimport --uri "mongodb://localhost:27017" --db readify --collection books --file $(pwd)/books.json --jsonArray
+   ```
+
 ## API Endpoints
 
 ### Authentication
@@ -182,65 +194,6 @@ Made by **Mohamed Dawoud**: [GitHub](https://github.com/mdawoud27) | [LinkedIn](
 - **Performance Optimization**: The application uses Redis to store frequently accessed data like book details, which speeds up book searches and reduces MongoDB queries.
 - **JWT Security**: To prevent unauthorized access, all endpoints require a valid JWT. Tokens are verified on each request, and only authorized users can access restricted routes.
 - **Data Consistency**: Managing relationships between authors and books posed challenges, especially during updates. We implemented helper functions to keep author-book records in sync, preventing any mismatched data.
-
-<!--## Tree of the project
-
-```bash
-readify/
-├── .github/                # GitHub workflows, actions, etc.
-│   └── workflows/
-│       └── ci.yml          # GitHub CI workflow for testing
-├── config/                 # Configuration files (DB, Redis, etc.)
-│   └── db.js               # MongoDB connection
-│   └── redis.js            # Redis configuration
-├── controllers/            # Logic for handling requests
-│   ├── authController.js   # Authentication (login, register)
-│   ├── authorController.js # Author management
-│   ├── bookController.js   # Book management
-│   ├── orderController.js  # Order management
-│   ├── reviewController.js # Reviews and ratings
-│   └── userController.js   # User profile management
-├── middlewares/            # Custom middlewares
-│   ├── auth.js             # JWT authentication middleware
-│   ├── errorHandler.js     # Error handling middleware
-│   └── logger.js           # Request logging middleware
-├── models/                 # Mongoose models (database schemas)
-│   ├── Author.js           # Author schema
-│   ├── Book.js             # Book schema
-│   ├── Order.js            # Order schema
-│   ├── Review.js           # Review schema
-│   └── User.js             # User schema
-├── routes/                 # API routes for each resource
-│   ├── auth.js             # Routes for authentication
-│   ├── authors.js          # Routes for authors
-│   ├── books.js            # Routes for books
-│   ├── orders.js           # Routes for orders
-│   ├── reviews.js          # Routes for reviews
-│   └── users.js            # Routes for user profiles
-├── services/               # Business logic, external services (e.g., Redis)
-│   ├── cacheService.js     # Redis caching service
-│   ├── paymentService.js   # Payment gateway integration (Stripe/PayPal)
-│   └── emailService.js     # Email notifications service
-├── utils/                  # Utility functions
-│   ├── validators.js       # Data validation logic
-│   └── helpers.js          # Helper functions
-├── views/                  # EJS templates (for forgot password, etc.)
-│   ├── forgot-password.ejs
-│   ├── link-send.ejs
-│   ├── reset-password.ejs
-│   └── success-password.ejs
-├── .env                    # Environment variables
-├── .gitignore              # Git ignore file
-├── app.js                  # Express app initialization
-├── package.json            # NPM package file
-├── README.md               # Project documentation
-├── seeder.js               # Seed initial data into the database
-└── tests/                  # Unit and integration tests
-    ├── auth.test.js        # Tests for authentication
-    ├── book.test.js        # Tests for book endpoints
-    └── user.test.js        # Tests for user-related endpoints
-```
--->
 
 ## License
 
