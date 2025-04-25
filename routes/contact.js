@@ -1,4 +1,5 @@
 const express = require("express");
+const he = require("he");
 const router = express.Router();
 const { sendEmail } = require("../services/emailService");
 
@@ -10,10 +11,10 @@ router.post("/contact", async (req, res) => {
   const subject = "New Contact Us Message";
   const html = `
     <h3>Contact Us Form Submission</h3>
-    <p><strong>Name:</strong> ${name}</p>
-    <p><strong>Email:</strong> ${email}</p>
-    <p><strong>Phone:</strong> ${phone}</p>
-    <p><strong>Message:</strong> ${message}</p>
+    <p><strong>Name:</strong> ${he.encode(name)}</p>
+    <p><strong>Email:</strong> ${he.encode(email)}</p>
+    <p><strong>Phone:</strong> ${he.encode(phone)}</p>
+    <p><strong>Message:</strong> ${he.encode(message)}</p>
   `;
 
   try {
