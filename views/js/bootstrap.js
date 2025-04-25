@@ -148,7 +148,9 @@
       }
 
       try {
-        return document.querySelector(selector) ? selector : null;
+        // Ensure the selector is a valid CSS selector and not executable code
+        var sanitizedSelector = document.querySelector(selector) ? selector : null;
+        return sanitizedSelector && /^[.#]?[a-zA-Z0-9_-]+$/.test(sanitizedSelector) ? sanitizedSelector : null;
       } catch (err) {
         return null;
       }
@@ -1075,7 +1077,7 @@
           return;
         }
 
-        var target = $(selector)[0];
+        var target = document.querySelector(selector);
 
         if (!target || !$(target).hasClass(ClassName$2.CAROUSEL)) {
           return;
